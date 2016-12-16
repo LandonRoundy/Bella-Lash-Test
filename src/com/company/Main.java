@@ -5,67 +5,37 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        //initailizing variables
         Scanner userInput = new Scanner(System.in);
         String originalInput;
-        final String vowelPattern = "[aeiouAEIOU]";
-        final String consonantPattern = "[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]";
-        final String numberPattern = "\\d";
-        String character;
+        String characterFinding;
+        String characterTesting;
         int charIndex = 0;
         int charIndexEnd;
-        int lineEnd;
-        int characterNumber;
-        int vowelNumber = 0;
-        int consonantNumber = 0;
-        int alphaNumber = 0;
-        int numNumber = 0;
-        int otherCharNumber = 0;
-        boolean vowel;
-        boolean consonant;
-        boolean number;
-
-        //getting input and finding length
+        int characterNumber =0;
+        boolean match;
+            
+        //getting sentence and defining character
         System.out.println("Please enter a sentence.");
         originalInput = userInput.nextLine();
-        lineEnd = originalInput.length();
-        characterNumber = originalInput.length();
+        System.out.println("Please enter the character you are looking for.");
+        characterFinding = userInput.nextLine();
 
         //checking character
-        while(charIndex < lineEnd) {
+        while(charIndex < originalInput.length()) {
 
-            //setting up character and booleans
+            //setting up character and boolean
             charIndexEnd = charIndex;
-            character = originalInput.substring(charIndex, ++charIndexEnd);
-            vowel = character.matches(vowelPattern);
-            consonant = character.matches(consonantPattern);
-            number = character.matches(numberPattern);
+            characterTesting = originalInput.substring(charIndex, ++charIndexEnd);
+            match = characterTesting.matches(characterFinding);
 
             //checking booleans
-            if (character.equals(" ")) {
-                --characterNumber;
-            }
-            if (vowel) {
-                ++vowelNumber;
-                ++alphaNumber;
-            }
-            if (consonant) {
-                ++consonantNumber;
-                ++alphaNumber;
-            }
-            if (number) {
-                ++numNumber;
-            }
-            if (!vowel && !consonant && !number) {
-                ++otherCharNumber;
+            if (match){
+                ++characterNumber;
             }
             ++charIndex;
         }
-        //RESULTS
-        System.out.println("There are " + characterNumber + " characters excluding spaces.");
-        System.out.println("There are " + vowelNumber + " vowels.");
-        System.out.println("There are " + consonantNumber + " consonants.");
-        System.out.println("There are " + alphaNumber + " alphabet characters.");
-        System.out.println("There are " + numNumber + " numbers.");
-        System.out.println("There are " + otherCharNumber + " non alphanumeric characters.");
+        //results
+        System.out.println("There are " + characterNumber + " " + characterFinding.toUpperCase() + "s.");
     }
 }
